@@ -5,13 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "watch-db": "json-server --watch db.json"
   },
   "dependencies": {
     "ant-design-vue": "^3.2.11",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13",
-    "watch-db": "json-server --watch db.json"
+    "vue": "^3.2.13"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
