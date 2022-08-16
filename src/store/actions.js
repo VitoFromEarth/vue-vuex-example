@@ -16,7 +16,7 @@ export const ACTIONS = {
 export default {
   async getTodos({ commit }) {
     const response = await apiClient.get('/todos');
-    commit(MUTATIONS.FETCH_TODOS, response.data.map(todo => new Todo(response.data)));
+    commit(MUTATIONS.FETCH_TODOS, response.data.map(todo => new Todo(todo)));
   },
 
   async addTodo ({ commit }, description) {
@@ -53,7 +53,7 @@ export default {
     }
   },
 
-  async completeAll({ state, commit, dispatch }) {
+  async completeAll({ state, dispatch }) {
     const updatedTodosRequests = state.todos.filter(todo => !todo.completed)
       .map(todo => apiClient.put(`/todos/${todo.id}`, new Todo({
         ...todo,
