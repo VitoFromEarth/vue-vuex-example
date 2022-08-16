@@ -27,6 +27,7 @@ const todoDescriptioin = ref("");
 const store = useStore();
 function addNewTodo() {
   store.dispatch(ACTIONS.ADD_TODO, todoDescriptioin.value);
+  todoDescriptioin.value = "";
 }
 
 </script>
