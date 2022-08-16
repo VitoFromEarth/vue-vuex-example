@@ -3,21 +3,26 @@
     {
       "id": "a750ad4d-970f-4b12-b0c6-31b5c2f75a42",
       "description": "Buy carrots",
-      "completed": false
+      "completed": true
     },
     {
       "id": "a750ad4d-970f-4b12-b0c6-31b5c2f75a43",
       "description": "Buy chips",
-      "completed": false
+      "completed": true
     },
     {
       "id": "a750ad4d-970f-4b12-b0c6-31b5c2f75a47",
       "description": "Salty",
-      "completed": false
+      "completed": true
     },
     {
       "id": "adcdb118-4983-4bf7-abf6-6298790dd8c2",
       "description": "Buy milk",
+      "completed": true
+    },
+    {
+      "id": "0ecea428-4f12-4fe1-9110-90298dfdfbb3",
+      "description": "qweqe",
       "completed": false
     }
   ]
