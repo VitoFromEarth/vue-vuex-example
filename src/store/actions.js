@@ -16,7 +16,7 @@ export const ACTIONS = {
 export default {
   async getTodos({ commit }) {
     const response = await apiClient.get('/todos');
-    commit(MUTATIONS.FETCH_TODOS, response.data);
+    commit(MUTATIONS.FETCH_TODOS, response.data.map(todo => new Todo(response.data)));
   },
 
   async addTodo ({ commit }, description) {
@@ -25,7 +25,7 @@ export default {
       return;
     }
     const response = await apiClient.post('/todos', new Todo({ description }));
-    commit(MUTATIONS.ADD_TODO, response.data);
+    commit(MUTATIONS.ADD_TODO, new Todo(response.data));
   },
 
   async removeTodo({ dispatch }, todoID) {
