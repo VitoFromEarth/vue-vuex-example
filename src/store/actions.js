@@ -1,17 +1,34 @@
 import { message } from 'ant-design-vue';
 import apiClient from "@/api/api.client";
 import { uuid } from "@/helpers/uuid";
+import { MUTATIONS } from './mutations';
 
-const createTodo = ({ description = "", completed = false }) => ({
-  id: uuid(),
-  description,
-  completed,
-})
+export const ACTIONS = {
+  ADD_TODO: 'addTodo',
+  CREATE_TODO: 'createTodo',
+  GET_TODOS: 'getTodos',
+  REMOVE_TODO: 'removeTodo',
+  TOGGLE_TODO: 'toggleTodo',
+  COMPLETE_ALL_TODOS: 'completeAll',
+  CLEAR_COMPLETED_TODOS: 'clearCompleted',
+}
+
+class Todo {
+  id = uuid();
+  description = "";
+  completed = false;
+
+  constructor({ id, description, completed, }) {
+    this.id = id ? id : this.id;
+    this.description = description || description.length ? description : this.description;
+    this.completed = completed ? completed : this.completed;
+  }
+}
 
 export default {
   async getTodos({ commit }) {
     const response = await apiClient.get('/todos');
-    commit('fetchTodos', response.data);
+    commit(MUTATIONS.FETCH_TODOS, response.data);
   },
 
   async addTodo ({ commit }, description) {
@@ -19,13 +36,13 @@ export default {
       message.error("Todo can't be empty!!!");
       return;
     }
-    const response = await apiClient.post('/todos', createTodo({ description }));
-    commit('addTodo', response.data);
+    const response = await apiClient.post('/todos', new Todo({ description }));
+    commit(MUTATIONS.ADD_TODO, response.data);
   },
 
   async removeTodo({ dispatch }, todoID) {
     await apiClient.delete(`/todos/${todoID}`);
-    await dispatch('getTodos');
+    await dispatch(MUTATIONS.GET_TODOS);
     message.success("Todo removed!");
   },
 
@@ -39,28 +56,25 @@ export default {
       })
       const updatedTodos = state.todos.map(todo => {
         if (todo.id === todoID) {
-          return response.data;
+          return new Todo(response.data);
         }
 
-        return todo;
+        return new Todo(todo);
       })
-      commit('fetchTodos', updatedTodos);
+      commit(MUTATIONS.FETCH_TODOS, updatedTodos);
     }
   },
 
   async completeAll({ state, commit }) {
-    const updatedTodos = state.todos.map(async (todo) => {
-      if (!todo.completed) {
-        await apiClient.put(`/todos/${todo.id}`, {
-          ...todo,
-          completed: true,
-        })
-      }
+    const updatedTodosRequests = state.todos.filter(todo => !todo.completed)
+      .map(todo => apiClient.put(`/todos/${todo.id}`, new Todo({
+        ...todo,
+        completed: true,
+      })));
 
-      return todo;
-    });
-
-    commit('fetchTodos', updatedTodos);
+    const response = await Promise.all(updatedTodosRequests);
+    const updatedTodos = response.map(resp => new Todo(resp.data));
+    commit(MUTATIONS.FETCH_TODOS, updatedTodos);
     message.success("All todos completed!");
   },
 
@@ -68,7 +82,7 @@ export default {
     state.todos.filter(todo => todo.completed)
       .forEach(async (todo) => {
         await apiClient.delete(`/todos/${todo.id}`);
-        commit('removeTodo', todo);
+        commit(MUTATIONS.REMOVE_TODO, todo);
       });
 
       message.success("All todos removed!");

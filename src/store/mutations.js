@@ -1,3 +1,9 @@
+export const MUTATIONS = {
+  FETCH_TODOS: 'fetchTodos',
+  ADD_TODO: 'addTodo',
+  REMOVE_TODO: 'removeTodo',
+}
+
 export default {
   fetchTodos(state, todos) {
     if (todos || todos.length) {

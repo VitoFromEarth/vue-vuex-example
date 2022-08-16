@@ -38,6 +38,7 @@
 <script setup>
 import { computed, onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import { ACTIONS } from "@/store/actions";
 import TodoItem from "@/components/todo-item.component";
 
 const store = useStore();
@@ -45,23 +46,23 @@ const todos = computed(() => store.state.todos.filter(todo => !todo.completed));
 const todosCompleted = computed(() => store.state.todos.filter(todo => todo.completed));
 
 function toggleTodo(todoID) {
-  store.dispatch('toggleTodo', todoID);
+  store.dispatch(ACTIONS.TOGGLE_TODO, todoID);
 }
 
 function completeAllTodos() {
-  store.dispatch('completeAll');
+  store.dispatch(ACTIONS.COMPLETE_ALL_TODOS);
 }
 
 function deleteTodo(todoID) {
-  store.dispatch('removeTodo', todoID);
+  store.dispatch(ACTIONS.REMOVE_TODO, todoID);
 }
 
 function clearAllTodos() {
-  store.dispatch('clearCompleted');
+  store.dispatch(ACTIONS.CLEAR_COMPLETED_TODOS);
 }
 
 onMounted(() => {
-  store.dispatch("getTodos");
+  store.dispatch(ACTIONS.GET_TODOS);
 });
 
 </script>
