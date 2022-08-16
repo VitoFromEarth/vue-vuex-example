@@ -53,16 +53,15 @@ export default {
     }
   },
 
-  async completeAll({ state, commit }) {
+  async completeAll({ state, commit, dispatch }) {
     const updatedTodosRequests = state.todos.filter(todo => !todo.completed)
       .map(todo => apiClient.put(`/todos/${todo.id}`, new Todo({
         ...todo,
         completed: true,
       })));
 
-    const response = await Promise.all(updatedTodosRequests);
-    const updatedTodos = response.map(resp => new Todo(resp.data));
-    commit(MUTATIONS.FETCH_TODOS, updatedTodos);
+    await Promise.all(updatedTodosRequests);
+    await dispatch(ACTIONS.GET_TODOS)
     message.success("All todos completed!");
   },
 
