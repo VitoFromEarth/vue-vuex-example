@@ -1,7 +1,7 @@
 import { message } from 'ant-design-vue';
-import apiClient from "@/api/api.client";
-import { uuid } from "@/helpers/uuid";
-import { MUTATIONS } from './mutations';
+import apiClient from '@/api/api.client';
+import { MUTATIONS } from '@/store/mutations';
+import { Todo } from '@/store/entities';
 
 export const ACTIONS = {
   ADD_TODO: 'addTodo',
@@ -11,18 +11,6 @@ export const ACTIONS = {
   TOGGLE_TODO: 'toggleTodo',
   COMPLETE_ALL_TODOS: 'completeAll',
   CLEAR_COMPLETED_TODOS: 'clearCompleted',
-}
-
-class Todo {
-  id = uuid();
-  description = "";
-  completed = false;
-
-  constructor({ id, description, completed, }) {
-    this.id = id ? id : this.id;
-    this.description = description || description.length ? description : this.description;
-    this.completed = completed ? completed : this.completed;
-  }
 }
 
 export default {

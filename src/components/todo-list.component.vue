@@ -36,10 +36,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "@vue/runtime-core";
-import { useStore } from "vuex";
-import { ACTIONS } from "@/store/actions";
-import TodoItem from "@/components/todo-item.component";
+import { computed, onMounted } from '@vue/runtime-core';
+import { useStore } from 'vuex';
+import { ACTIONS } from '@/store/actions';
+import TodoItem from '@/components/todo-item.component';
 
 const store = useStore();
 const todos = computed(() => store.state.todos.filter(todo => !todo.completed));

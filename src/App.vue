@@ -17,9 +17,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useStore } from "vuex";
-import { ACTIONS } from "@/store/actions";
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import { ACTIONS } from '@/store/actions';
 import 'ant-design-vue/dist/antd.css';
 import TodoList from '@/components/todo-list.component.vue';
 
