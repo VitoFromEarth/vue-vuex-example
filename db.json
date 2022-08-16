@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "a750ad4d-970f-4b12-b0c6-31b5c2f75a42",
+      "description": "Buy carrots",
+      "completed": false
+    },
+    {
+      "id": "a750ad4d-970f-4b12-b0c6-31b5c2f75a43",
+      "description": "Buy chips",
+      "completed": false
+    },
+    {
+      "id": "a750ad4d-970f-4b12-b0c6-31b5c2f75a47",
+      "description": "Salty",
+      "completed": false
+    }
+  ]
+}
